@@ -1,0 +1,29 @@
+{{#each this}}
+  <div>
+    <div class='info__container'>
+      <img
+        class='info__img'
+        src='{{flags.svg}}'
+        alt='{{name}}'
+        width='60'
+        height='30'
+      />
+      <h2>{{name}}</h2>
+    </div>
+
+    <ul class='info__list'>
+      <li class='info__item'>
+        <span class='info__item--span'>Capital: </span>{{capital}}</li>
+      <li class='info__item'>
+        <span class='info__item--span'>Populations: </span>{{population}}</li>
+      <li class='info__item list-language'><span
+          class='info__item--span'
+        >Languages: </span>
+        <ul class='list-language'>
+          {{#each languages}}<li class='item-language'>{{name}}<span>,
+              </span></li>{{/each}}
+        </ul>
+      </li>
+    </ul>
+  </div>
+{{/each}}
