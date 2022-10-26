@@ -16,9 +16,18 @@ const DEBOUNCE_DELAY = 300;
 refs.inputForm.addEventListener(
   'input',
   debounce(evt => {
-    inputValidation(evt);
+    requestLengthCheck(evt);
+    // inputValidation(evt);
   }, DEBOUNCE_DELAY)
 );
+
+function requestLengthCheck(event) {
+  if (normalizeText(event.target.value).length === 0) {
+    clearDoom();
+    return;
+  }
+  inputValidation(event);
+}
 
 function inputValidation(event) {
   restCountriesService.query = normalizeText(event.target.value);
@@ -34,9 +43,13 @@ function insertMarkup(callbackFunction) {
   refs.countryList.insertAdjacentHTML('beforeend', callbackFunction);
 }
 
-function changeMarkup(articles) {
+function clearDoom() {
   refs.countryList.innerHTML = '';
   refs.countryInfo.innerHTML = '';
+}
+
+function changeMarkup(articles) {
+  clearDoom();
   if (articles.status === 404 || articles.message === 'Page Not Found') {
     failureMesage();
     return;
